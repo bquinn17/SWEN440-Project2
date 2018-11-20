@@ -2,55 +2,131 @@ package org.rit.swen440.dataLayer;
 
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.nio.file.Path;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 /**
  * A record of each product type
  */
 @Data
-public class Product {
-  @Setter(AccessLevel.PRIVATE)
-  private boolean updated = false;
+@Entity
+@Table(name = "product")
+public class Product implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-  private Path path;
+    @Id
+    @Column(name = "skuCode")
+    private int skuCode;
 
-  private int skuCode;
-  private int itemCount;
-  private int threshold;
-  private int reorderAmount;
-  private String title;
-  private String description;
-  private BigDecimal cost;
+    @Column(name = "itemCount")
+    private int itemCount;
 
-  /**
-   * Check to see if we have enough of this item for an order
-   *
-   * @param amount Number of items being ordered
-   * @return true if enough stock
-   */
-  public boolean canOrder(int amount) {
-    return (itemCount - amount >= 0);
-  }
+    @Column(name = "threshold")
+    private int threshold;
 
-  /**
-   * Place an order, decrement the available itemCount
-   *
-   * @param amount being ordered
-   * @return if order was successfully processed
-   */
-  public boolean order(int amount) {
-    if (canOrder(amount)) {
-      itemCount = itemCount - amount;
-      setUpdated(true);  // Need to store the updated product information
+    @Column(name = "reorderAmount")
+    private int reorderAmount;
 
-      // TODO:  add stock management functionality
-      return true;
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name= "cost")
+    private BigDecimal cost;
+
+    @Setter(AccessLevel.PRIVATE)
+    private boolean updated = false;
+
+    public int getSkuCode() {
+        return skuCode;
     }
 
-    return false;
-  }
+    public int getItemCount() {
+        return itemCount;
+    }
+
+    public int getThreshold() {
+        return threshold;
+    }
+
+    public int getReorderAmount() {
+        return reorderAmount;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public BigDecimal getCost() {
+        return cost;
+    }
+
+    public void setItemCount(int itemCount) {
+        this.itemCount = itemCount;
+    }
+
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
+    }
+
+    public void setReorderAmount(int reorderAmount) {
+        this.reorderAmount = reorderAmount;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
+    }
+
+    /**
+     * Check to see if we have enough of this item for an order
+     *
+     * @param amount Number of items being ordered
+     * @return true if enough stock
+     */
+    public boolean canOrder(int amount) {
+        return (itemCount - amount >= 0);
+    }
+
+    /**
+     * Place an order, decrement the available itemCount
+     *
+     * @param amount being ordered
+     * @return if order was successfully processed
+     */
+    public boolean order(int amount) {
+        if (canOrder(amount)) {
+            itemCount = itemCount - amount;
+            setUpdated(true);  // Need to store the updated product information
+
+            // TODO:  add stock management functionality
+            return true;
+        }
+
+        return false;
+    }
 }
