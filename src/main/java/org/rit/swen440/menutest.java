@@ -1,6 +1,6 @@
 package org.rit.swen440;
 
-import org.rit.swen440.presentation.menumgr;
+import org.rit.swen440.presentation.MenuManager;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,7 +12,7 @@ public class menutest
         try {
             System.getProperties().load(new FileInputStream("orderSys.properties"));
             System.out.println("Hello");
-            menumgr mgr = new menumgr();
+            MenuManager mgr = new MenuManager();
             int currentLevel = 0;
             boolean done = false;
             do {
