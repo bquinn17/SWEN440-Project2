@@ -1,13 +1,10 @@
 package org.rit.swen440.control;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.rit.swen440.dataLayer.Category;
 import org.rit.swen440.dataLayer.Product;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
@@ -17,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.hibernate.SessionFactory;
 
 /**
  * Controls access to data, on start-up scans directories and builds internal
@@ -37,12 +33,8 @@ public class Controller {
         INVENTORY
     }
 
-    ;
-
     public Controller(String directory) {
         loadCategories(directory);
-        SessionFactory sessionFactory = SessionFactory();
-        this.hibernateSession =
     }
 
     /**
@@ -256,8 +248,6 @@ public class Controller {
      * @param product the product
      */
     private void updateProduct(Product product) {
-
-        product.save();
 //    try (BufferedWriter writer = Files.newBufferedWriter(product.getPath(), Charset.forName("US-ASCII"))){
 //      writer.write(String.valueOf(product.getSkuCode()));
 //      writer.newLine();
