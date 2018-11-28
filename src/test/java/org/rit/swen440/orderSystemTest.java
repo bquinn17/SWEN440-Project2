@@ -7,7 +7,7 @@ import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.repository.CategoryRepository;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 /**
  * Unit test for menutest Application.
@@ -27,7 +27,7 @@ public class orderSystemTest {
         product.setItemCount(10);
         product.setSkuCode(1);
         product.setTitle("A cool RC car");
-        HashSet<Product> products = new HashSet<>();
+        ArrayList<Product> products = new ArrayList<>();
         products.add(product);
         category.setProducts(products);
         CategoryRepository.createRecord(category);

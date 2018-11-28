@@ -9,10 +9,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.nio.file.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -193,7 +190,7 @@ public class Controller {
      * @param path the subdirectory we're working in
      * @return a set of products
      */
-    private Set<Product> loadProducts(Path path) {
+    private List<Product> loadProducts(Path path) {
         DirectoryStream.Filter<Path> productFilter = new DirectoryStream.Filter<Path>() {
             @Override
             public boolean accept(Path path) throws IOException {
@@ -201,7 +198,7 @@ public class Controller {
             }
         };
 
-        Set<Product> products = new HashSet<>();
+        List<Product> products = new ArrayList<>();
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, productFilter)) {
             for (Path productFile : stream) {
@@ -234,7 +231,7 @@ public class Controller {
      *
      * @param products set of products
      */
-    private void writeProducts(Set<Product> products) {
+    private void writeProducts(List<Product> products) {
         for (Product product : products) {
             if (product.isUpdated()) {
                 updateProduct(product);

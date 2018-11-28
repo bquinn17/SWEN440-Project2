@@ -3,17 +3,13 @@ package org.rit.swen440.dataLayer;
 import lombok.Data;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 /**
@@ -37,7 +33,8 @@ public class Category implements Serializable {
     @Column(name = "description")
     private String description;
 
-    private Set<Product> products = new HashSet<>();
+    @OneToMany(targetEntity = Product.class, mappedBy = "category", fetch = FetchType.EAGER)
+    private List<Product> products = null;
 
     public int getId() {
         return id;

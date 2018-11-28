@@ -4,6 +4,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.rit.swen440.dataLayer.Category;
+import org.rit.swen440.dataLayer.Product;
+import org.rit.swen440.dataLayer.User;
 
 public class DBSession {
 
@@ -13,14 +16,18 @@ public class DBSession {
     // This Method Is Used To Create The Hibernate's SessionFactory Object
     private static SessionFactory buildSessionFactory() {
         // Creating Configuration Instance & Passing Hibernate Configuration File
-        Configuration configObj = new Configuration();
-        configObj.configure("hibernate.cfg.xml");
+        Configuration configuration = new Configuration();
+        configuration.addResource("hibernate.cfg.xml");
+        configuration.addAnnotatedClass(Category.class);
+        configuration.addAnnotatedClass(Product.class);
+        configuration.addAnnotatedClass(User.class);
+        configuration.configure();
 
         // Since Hibernate Version 4.x, ServiceRegistry Is Being Used
-        ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
+        ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 
         // Creating Hibernate SessionFactory Instance
-        sessionFactoryObj = configObj.buildSessionFactory(serviceRegistryObj);
+        sessionFactoryObj = configuration.buildSessionFactory(serviceRegistryObj);
         return sessionFactoryObj;
     }
 
