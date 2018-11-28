@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.rit.swen440.dataLayer.Category;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.repository.CategoryRepository;
+import org.rit.swen440.repository.ProductRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,8 +30,12 @@ public class orderSystemTest {
         product.setTitle("A cool RC car");
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        category.setProducts(products);
+//        category.setProducts(products);
         CategoryRepository.createRecord(category);
+
+        product.setCategory(category);
+        System.out.println("Something breaks here");
+        ProductRepository.createRecord(product);
 
         Assert.assertNotNull(category);
         Assert.assertNotNull(category.getProducts());

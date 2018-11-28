@@ -24,19 +24,19 @@ public class Product implements Serializable {
     @Column(name = "skuCode")
     private int skuCode;
 
-    @Column(name = "itemCount")
+    @Column(name = "item_count")
     private int itemCount;
 
-    @Column(name = "threshold")
-    private int threshold;
+    @Column(name = "reorder_threshold")
+    private int reorderThreshold;
 
-    @Column(name = "reorderAmount")
+    @Column(name = "reorder_amount")
     private int reorderAmount;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 64)
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "NVARCHAR(1024)")
     private String description;
 
     @Column(name= "cost")
@@ -58,7 +58,7 @@ public class Product implements Serializable {
     }
 
     public int getThreshold() {
-        return threshold;
+        return reorderThreshold;
     }
 
     public int getReorderAmount() {
@@ -82,7 +82,7 @@ public class Product implements Serializable {
     }
 
     public void setThreshold(int threshold) {
-        this.threshold = threshold;
+        this.reorderThreshold = threshold;
     }
 
     public void setReorderAmount(int reorderAmount) {
