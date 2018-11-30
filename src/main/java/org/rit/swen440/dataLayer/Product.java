@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -45,6 +46,9 @@ public class Product implements Serializable {
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="categoryId")
     private Category category = null;
+
+    @OneToMany(targetEntity = WishList.class, mappedBy = "skuCode", fetch = FetchType.EAGER)
+    private List<WishList> wishListItems = null;
 
     @Setter(AccessLevel.PRIVATE)
     private boolean updated = false;
