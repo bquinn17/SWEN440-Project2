@@ -47,7 +47,7 @@ public class Product implements Serializable {
     @JoinColumn(name="categoryId")
     private Category category = null;
 
-    @OneToMany(targetEntity = WishList.class, mappedBy = "skuCode", fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = WishList.class, mappedBy = "product", fetch = FetchType.EAGER)
     private List<WishList> wishListItems = null;
 
     @Setter(AccessLevel.PRIVATE)

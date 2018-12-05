@@ -25,7 +25,7 @@ public class User implements Serializable {
     @Column(name="password")
     private String password;
 
-    @OneToMany(targetEntity = WishList.class, mappedBy = "user_id", fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = WishList.class, mappedBy = "user", fetch = FetchType.EAGER)
     private List<WishList> wishListItems = null;
 
 
