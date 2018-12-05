@@ -30,7 +30,7 @@ public class orderSystemTest {
         product.setItemCount(10);
 
         Random rand = new Random();
-        product.setSkuCode(rand.nextInt(100000));
+        product.setSkuCode(rand.nextInt(2000000000));
         product.setTitle("A cool RC car");
         product.setCategory(category);
         ArrayList<Product> products = new ArrayList<>();
