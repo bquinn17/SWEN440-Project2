@@ -6,6 +6,7 @@ import org.rit.swen440.dataLayer.Category;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.repository.CategoryRepository;
 import org.rit.swen440.repository.ProductRepository;
+import java.util.Random;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,19 +23,21 @@ public class orderSystemTest {
         Category category = new Category();
         category.setDescription("Toys");
         category.setName("RC car");
+
         Product product = new Product();
         product.setCost(new BigDecimal(100));
         product.setDescription("The coolest RC car ever");
         product.setItemCount(10);
-        product.setSkuCode(1);
+
+        Random rand = new Random();
+        product.setSkuCode(rand.nextInt(100000));
         product.setTitle("A cool RC car");
+        product.setCategory(category);
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-//        category.setProducts(products);
-        CategoryRepository.createRecord(category);
 
-        product.setCategory(category);
-        System.out.println("Something breaks here");
+        category.setProducts(products);
+
         ProductRepository.createRecord(product);
 
         Assert.assertNotNull(category);
