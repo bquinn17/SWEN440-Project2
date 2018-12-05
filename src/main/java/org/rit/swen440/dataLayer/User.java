@@ -16,7 +16,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
-    @Column(name="username")
+    @Column(name="username", length = 64)
     private String userName;
 
     @Column(name="fullName")
