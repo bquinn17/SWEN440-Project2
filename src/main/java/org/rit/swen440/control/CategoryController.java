@@ -1,59 +1,27 @@
 package org.rit.swen440.control;
 
 import org.rit.swen440.dataLayer.Category;
+import org.rit.swen440.repository.CategoryRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CategoryController {
 
-    private Set<Category> categories = new HashSet<>();
 
-    /**
-     * Load the Category information
-     *
-     * @param directory root directory
-     */
-    private void loadCategories(String directory) {
-        this.dirPath = Paths.get(directory);
-
-        DirectoryStream.Filter<Path> dirFilter = new DirectoryStream.Filter<Path>() {
-            @Override
-            public boolean accept(Path path) throws IOException {
-                return Files.isDirectory(path);
-            }
-        };
-
-        // We're just interested in directories, filter out all other files
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dirPath, dirFilter)) {
-            for (Path file : stream) {
-                // get the category information from each directory
-                Optional<Category> entry = getCategory(file);
-                entry.ifPresent(categories::add);
-            }
-        } catch (IOException | DirectoryIteratorException e) {
-            // TODO:  Replace with logger
-            System.err.println(e);
-        }
-    }
 
     /**
      * Get a list of all category names
      *
      * @return list of categories
      */
-    public List<String> getCategories() {
+    public static List<Category> getCategories() {
 
-        return categories.stream()
-                .map(Category::getName)
-                .collect(Collectors.toList());
+        return CategoryRepository.getAllRecords();
     }
 
     /**
@@ -62,7 +30,7 @@ public class CategoryController {
      * @param category name
      * @return description
      */
-    public String getCategoryDescription(String category) {
+    public static String getCategoryDescription(String category) {
         Optional<Category> match = categories.stream().filter(c -> c.getName().equalsIgnoreCase(category)).findFirst();
         return match.map(Category::getDescription).orElse(null);
     }
@@ -73,7 +41,7 @@ public class CategoryController {
      * @param name
      * @return Category, if present
      */
-    public Optional<Category> findCategory(String name) {
+    public static Optional<Category> findCategory(String name) {
         return categories.stream()
                 .filter(c -> c.getName().equalsIgnoreCase(name))
                 .findFirst();
@@ -83,7 +51,7 @@ public class CategoryController {
      * Loop through all our categories and write any product records that
      * have been updated.
      */
-    public void writeCategories() {
+    public static void writeCategories() {
         for (Category category : categories) {
             writeProducts(category.getProducts());
         }
@@ -95,7 +63,7 @@ public class CategoryController {
      * @param path directory
      * @return Category object, if .cat file exists
      */
-    private Optional<Category> getCategory(Path path) {
+    private static Optional<Category> getCategory(Path path) {
         DirectoryStream.Filter<Path> catFilter = new DirectoryStream.Filter<Path>() {
             @Override
             public boolean accept(Path path) throws IOException {

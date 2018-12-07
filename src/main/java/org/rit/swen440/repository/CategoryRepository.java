@@ -34,15 +34,15 @@ public class CategoryRepository {
     }
 
     // Method 2: This Method Is Used To Display The Records From The Database Table
-    public static List getAllRecords() {
-        List categoryList = new ArrayList();
+    public static List<Category> getAllRecords() {
+        List<Category> categoryList = new ArrayList<>();
         // Getting Session Object From SessionFactory
         Session sessionObj = DBSession.getSession();
         try {
             // Getting Transaction Object From Session Object
             sessionObj.beginTransaction();
 
-            categoryList = sessionObj.createQuery("FROM Category").list();
+            categoryList = (List<Category>) sessionObj.createQuery("FROM Category").list();
         } catch(Exception sqlException) {
             if(null != sessionObj.getTransaction()) {
                 sessionObj.getTransaction().rollback();
