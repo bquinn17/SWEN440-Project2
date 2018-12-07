@@ -54,14 +54,10 @@ public class Product implements Serializable {
     @JoinColumn(name="categoryId")
     private Category category = null;
 
-    @OneToMany(targetEntity = WishList.class, mappedBy = "product")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(targetEntity = WishList.class, mappedBy = "product", fetch = FetchType.EAGER)
     private Set<WishList> wishListItems = null;
 
     @OneToMany(targetEntity = OrderHistory.class, mappedBy = "product")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @Fetch(value = FetchMode.SUBSELECT)
     private Set<OrderHistory> orderHistoryItems = null;
 
     @Setter(AccessLevel.PRIVATE)
