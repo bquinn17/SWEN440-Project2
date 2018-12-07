@@ -3,6 +3,7 @@ package org.rit.swen440.dataLayer;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.hibernate.criterion.Order;
 
 import java.math.BigDecimal;
 
@@ -49,6 +50,9 @@ public class Product implements Serializable {
 
     @OneToMany(targetEntity = WishList.class, mappedBy = "skuCode", fetch = FetchType.EAGER)
     private List<WishList> wishListItems = null;
+
+    @OneToMany(targetEntity = OrderHistory.class, mappedBy = "product", fetch = FetchType.EAGER)
+    private List<OrderHistory> orderHistoryItems = null;
 
     @Setter(AccessLevel.PRIVATE)
     private boolean updated = false;

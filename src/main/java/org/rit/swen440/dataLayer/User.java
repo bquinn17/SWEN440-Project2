@@ -28,6 +28,8 @@ public class User implements Serializable {
     @OneToMany(targetEntity = WishList.class, mappedBy = "user_id", fetch = FetchType.EAGER)
     private List<WishList> wishListItems = null;
 
+    @OneToMany(targetEntity = OrderHistory.class, mappedBy = "user", fetch = FetchType.EAGER)
+    private List<OrderHistory> orderHistoryItems = null;
 
     public int getId() {
         return id;

@@ -13,12 +13,12 @@ public class OrderHistory implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="UserUser_id")
-    private int userId;
+    @JoinColumn(name="user_user_id")
+    private User user;
 
     @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="ProductSkuCode")
-    private int skuCode;
+    @JoinColumn(name="product_skuCode")
+    private Product product;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date")
@@ -30,20 +30,20 @@ public class OrderHistory implements Serializable {
     @Column(name = "action")
     private int action;
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getSkuCode() {
-        return skuCode;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setSkuCode(int skuCode) {
-        this.skuCode = skuCode;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Date getDateCreated() {
