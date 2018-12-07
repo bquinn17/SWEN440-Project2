@@ -9,10 +9,9 @@ import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.dataLayer.User;
 import org.rit.swen440.dataLayer.WishList;
 
-public class DBSession {
+class DBSession {
 
     private static SessionFactory sessionFactoryObj;
-    private static org.hibernate.Session sessionObj;
 
     // This Method Is Used To Create The Hibernate's SessionFactory Object
     private static SessionFactory buildSessionFactory() {
@@ -33,21 +32,16 @@ public class DBSession {
         return sessionFactoryObj;
     }
 
-    public static org.hibernate.Session getSession(){
-
-        if (sessionObj == null) {
+    static org.hibernate.Session getSession(){
+        if (sessionFactoryObj == null || sessionFactoryObj.isClosed()) {
             buildSessionFactory();
-            sessionObj = buildSessionFactory().openSession();
         }
-
+        org.hibernate.Session sessionObj = sessionFactoryObj.openSession();
         return sessionObj;
     }
 
-    public static void closeSession() {
-        sessionObj.close();
-        sessionObj.clear();
+    static void closeSessionFactory() {
         sessionFactoryObj.close();
-        sessionObj = null;
         sessionFactoryObj = null;
     }
 }

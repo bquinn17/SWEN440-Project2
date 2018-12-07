@@ -23,7 +23,7 @@ public class Category implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -34,7 +34,7 @@ public class Category implements Serializable {
     @OneToMany(targetEntity = Product.class, mappedBy = "category", fetch = FetchType.EAGER)
     private List<Product> products = null;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

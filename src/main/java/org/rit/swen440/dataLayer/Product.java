@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.*;
 
@@ -23,7 +24,7 @@ public class Product implements Serializable {
 
     @Id
     @Column(name = "skuCode")
-    private int skuCode;
+    private int skuCode = new Random().nextInt(2000000000);
 
     @Column(name = "item_count")
     private int itemCount;
