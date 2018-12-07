@@ -78,11 +78,11 @@ public class ProductController {
         return productsInCategory;
     }
 
-    private Object getProduct(String product) {
+    public Product getProduct(String product) {
         List<Product> products = ProductRepository.getAllRecords();
         for (Object aP : products) {
             if (aP.equals(product)) {
-                return aP;
+                return (Product) aP;
             }
         }
         return null;
@@ -93,7 +93,7 @@ public class ProductController {
      *
      * @param products set of products
      */
-    private void writeProducts(List<Product> products) {
+    public void writeProducts(List<Product> products) {
         for (Product product : products) {
             updateProduct(product);
         }
@@ -104,7 +104,7 @@ public class ProductController {
      *
      * @param product the product
      */
-    private void updateProduct(Product product) {
+    public void updateProduct(Product product) {
         ProductRepository.updateRecord(product);
     }
 

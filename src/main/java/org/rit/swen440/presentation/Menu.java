@@ -1,5 +1,8 @@
 package org.rit.swen440.presentation;
 
+import org.rit.swen440.dataLayer.Category;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,8 +14,8 @@ class Menu {
         sc = new Scanner(System.in);
     }
 
-    void loadMenu(List<String> menuItems) {
-        menuList = menuItems;
+    void loadMenu() {
+        menuList = new ArrayList<>();
     }
 
     void addMenuItem(String item) {

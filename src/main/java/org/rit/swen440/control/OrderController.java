@@ -12,7 +12,7 @@ public class OrderController {
     public boolean order(int amount, Product product) {
         if (canOrder(amount, product)) {
             product.setItemCount(product.getItemCount() - amount);
-            updateProduct(product);  // Need to store the updated product information
+            //updateProduct(product);  // Need to store the updated product information
 
             // TODO:  add stock management functionality
             return true;
