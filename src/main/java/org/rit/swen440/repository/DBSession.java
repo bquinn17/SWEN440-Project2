@@ -11,7 +11,7 @@ class DBSession {
     private static SessionFactory sessionFactoryObj;
 
     // This Method Is Used To Create The Hibernate's SessionFactory Object
-    private static SessionFactory buildSessionFactory() {
+    private synchronized static SessionFactory buildSessionFactory() {
         // Creating Configuration Instance & Passing Hibernate Configuration File
         Configuration configuration = new Configuration();
         configuration.addResource("hibernate.cfg.xml");
@@ -30,7 +30,7 @@ class DBSession {
         return sessionFactoryObj;
     }
 
-    static org.hibernate.Session getSession(){
+    synchronized static org.hibernate.Session getSession(){
         if (sessionFactoryObj == null || sessionFactoryObj.isClosed()) {
             buildSessionFactory();
         }

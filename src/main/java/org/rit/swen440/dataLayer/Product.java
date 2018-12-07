@@ -3,6 +3,10 @@ package org.rit.swen440.dataLayer;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.criterion.Order;
 
 import java.math.BigDecimal;
@@ -10,6 +14,7 @@ import java.math.BigDecimal;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -49,11 +54,15 @@ public class Product implements Serializable {
     @JoinColumn(name="categoryId")
     private Category category = null;
 
-    @OneToMany(targetEntity = WishList.class, mappedBy = "product", fetch = FetchType.EAGER)
-    private List<WishList> wishListItems = null;
+    @OneToMany(targetEntity = WishList.class, mappedBy = "product")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private Set<WishList> wishListItems = null;
 
-    @OneToMany(targetEntity = OrderHistory.class, mappedBy = "product", fetch = FetchType.EAGER)
-    private List<OrderHistory> orderHistoryItems = null;
+    @OneToMany(targetEntity = OrderHistory.class, mappedBy = "product")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private Set<OrderHistory> orderHistoryItems = null;
 
     @Setter(AccessLevel.PRIVATE)
     private boolean updated = false;

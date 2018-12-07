@@ -16,15 +16,15 @@ import java.util.ArrayList;
 public class orderSystemTest {
 
 
-    @Test
-    public void testCategoryCreation() {
-        Category category = new Category();
-        category.setDescription("Music");
-        category.setName("8 Track Tapes");
-
-        CategoryRepository.createRecord(category);
-        Assert.assertNotNull(category.getId());
-    }
+//    @Test
+//    public void testCategoryCreation() {
+//        Category category = new Category();
+//        category.setDescription("Music");
+//        category.setName("8 Track Tapes");
+//
+//        CategoryRepository.createRecord(category);
+//        Assert.assertNotNull(category.getId());
+//    }
 
     @Test
     public void testProductCreation() {
