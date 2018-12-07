@@ -1,7 +1,5 @@
 package org.rit.swen440.presentation;
 
-import org.rit.swen440.control.Controller;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,10 +9,8 @@ public class MenuManager {
     private int currentLevel = 0;
     private String currentCategoryName;
     private String currentItemName;
-    private Controller controller;
 
     public MenuManager() {
-        controller = new Controller(System.getProperty("fileSystemRoot"));
 
     }
 
