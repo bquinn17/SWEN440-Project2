@@ -14,5 +14,6 @@
         <mapping class="org.rit.swen440.dataLayer.User"/>
         <mapping class="org.rit.swen440.dataLayer.Category"/>
         <mapping class="org.rit.swen440.dataLayer.Product"/>
+        <mapping class="org.rit.swen440.dataLayer.WithList"/>
     </session-factory>
 </hibernate-configuration>

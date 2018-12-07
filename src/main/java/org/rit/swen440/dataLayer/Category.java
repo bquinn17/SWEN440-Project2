@@ -2,10 +2,8 @@ package org.rit.swen440.dataLayer;
 
 import lombok.Data;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import java.io.Serializable;
 
@@ -25,7 +23,7 @@ public class Category implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -36,7 +34,7 @@ public class Category implements Serializable {
     @OneToMany(targetEntity = Product.class, mappedBy = "category", fetch = FetchType.EAGER)
     private List<Product> products = null;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -48,12 +46,20 @@ public class Category implements Serializable {
         return description;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Optional<Product> findProduct(String name) {

@@ -16,7 +16,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
-    @Column(name="username")
+    @Column(name="username", length = 64)
     private String userName;
 
     @Column(name="fullName")
@@ -25,7 +25,7 @@ public class User implements Serializable {
     @Column(name="password")
     private String password;
 
-    @OneToMany(targetEntity = WishList.class, mappedBy = "user_id", fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = WishList.class, mappedBy = "user", fetch = FetchType.EAGER)
     private List<WishList> wishListItems = null;
 
     @OneToMany(targetEntity = OrderHistory.class, mappedBy = "user", fetch = FetchType.EAGER)

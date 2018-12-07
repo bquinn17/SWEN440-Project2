@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.*;
 
@@ -24,21 +25,21 @@ public class Product implements Serializable {
 
     @Id
     @Column(name = "skuCode")
-    private int skuCode;
+    private int skuCode = new Random().nextInt(2000000000);
 
-    @Column(name = "itemCount")
+    @Column(name = "item_count")
     private int itemCount;
 
-    @Column(name = "threshold")
-    private int threshold;
+    @Column(name = "reorder_threshold")
+    private int reorderThreshold;
 
-    @Column(name = "reorderAmount")
+    @Column(name = "reorder_amount")
     private int reorderAmount;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 64)
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "NVARCHAR(1024)")
     private String description;
 
     @Column(name= "cost")
@@ -48,7 +49,7 @@ public class Product implements Serializable {
     @JoinColumn(name="categoryId")
     private Category category = null;
 
-    @OneToMany(targetEntity = WishList.class, mappedBy = "skuCode", fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = WishList.class, mappedBy = "product", fetch = FetchType.EAGER)
     private List<WishList> wishListItems = null;
 
     @OneToMany(targetEntity = OrderHistory.class, mappedBy = "product", fetch = FetchType.EAGER)
@@ -66,7 +67,7 @@ public class Product implements Serializable {
     }
 
     public int getThreshold() {
-        return threshold;
+        return reorderThreshold;
     }
 
     public int getReorderAmount() {
@@ -89,8 +90,8 @@ public class Product implements Serializable {
         this.itemCount = itemCount;
     }
 
-    public void setThreshold(int threshold) {
-        this.threshold = threshold;
+    public void setReorderThreshold(int threshold) {
+        this.reorderThreshold = threshold;
     }
 
     public void setReorderAmount(int reorderAmount) {
@@ -109,31 +110,7 @@ public class Product implements Serializable {
         this.cost = cost;
     }
 
-    /**
-     * Check to see if we have enough of this item for an order
-     *
-     * @param amount Number of items being ordered
-     * @return true if enough stock
-     */
-    public boolean canOrder(int amount) {
-        return (itemCount - amount >= 0);
-    }
-
-    /**
-     * Place an order, decrement the available itemCount
-     *
-     * @param amount being ordered
-     * @return if order was successfully processed
-     */
-    public boolean order(int amount) {
-        if (canOrder(amount)) {
-            itemCount = itemCount - amount;
-            setUpdated(true);  // Need to store the updated product information
-
-            // TODO:  add stock management functionality
-            return true;
-        }
-
-        return false;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
