@@ -4,10 +4,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.rit.swen440.dataLayer.Category;
-import org.rit.swen440.dataLayer.Product;
-import org.rit.swen440.dataLayer.User;
-import org.rit.swen440.dataLayer.WishList;
+import org.rit.swen440.dataLayer.*;
 
 class DBSession {
 
@@ -22,6 +19,7 @@ class DBSession {
         configuration.addAnnotatedClass(Product.class);
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(WishList.class);
+        configuration.addAnnotatedClass(OrderHistory.class);
         configuration.configure();
 
         // Since Hibernate Version 4.x, ServiceRegistry Is Being Used

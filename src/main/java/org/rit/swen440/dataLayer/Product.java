@@ -66,6 +66,10 @@ public class Product implements Serializable {
         return itemCount;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
     public int getThreshold() {
         return reorderThreshold;
     }
