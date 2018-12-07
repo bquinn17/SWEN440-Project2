@@ -35,9 +35,10 @@ public class orderSystemTest {
         Product product = new Product();
         product.setCost(new BigDecimal(100));
         product.setDescription("The coolest RC car ever");
-        product.setItemCount(10);
-
         product.setTitle("A cool RC car");
+        product.setItemCount(100);
+        product.setReorderAmount(90);
+        product.setReorderThreshold(10);
         product.setCategory(category);
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);

@@ -205,7 +205,7 @@ public class Controller {
                     Product product = new Product();
                     product.setSkuCode(Integer.valueOf(reader.readLine()));
                     product.setItemCount(Integer.valueOf(reader.readLine()));
-                    product.setThreshold(Integer.valueOf(reader.readLine()));
+                    product.setReorderThreshold(Integer.valueOf(reader.readLine()));
                     product.setReorderAmount(Integer.valueOf(reader.readLine()));
                     product.setTitle(reader.readLine());
                     product.setDescription(reader.readLine());

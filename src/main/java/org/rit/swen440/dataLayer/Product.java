@@ -86,7 +86,7 @@ public class Product implements Serializable {
         this.itemCount = itemCount;
     }
 
-    public void setThreshold(int threshold) {
+    public void setReorderThreshold(int threshold) {
         this.reorderThreshold = threshold;
     }
 
