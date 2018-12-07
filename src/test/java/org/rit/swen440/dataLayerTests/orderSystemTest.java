@@ -42,7 +42,6 @@ public class orderSystemTest {
         product.setCategory(category);
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-
         category.setProducts(products);
 
         ProductRepository.createRecord(product);

@@ -106,4 +106,7 @@ public class Product implements Serializable {
         this.cost = cost;
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

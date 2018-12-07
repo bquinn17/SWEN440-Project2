@@ -46,12 +46,20 @@ public class Category implements Serializable {
         return description;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Optional<Product> findProduct(String name) {
