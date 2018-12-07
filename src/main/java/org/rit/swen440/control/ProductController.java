@@ -27,14 +27,14 @@ public class ProductController {
      * @return List of Products in the category
      */
     public List<Product> getProducts(String categoryName) {
-        List<Product> products = new ArrayList<>();
-        List<Product> Products = ProductRepository.getAllRecords();
-        for (Product p: Products) {
-            if (p.getCategory().toString().equals(categoryName)) {
-                products.add(p);
+        List<Product> productsInCategory = new ArrayList<>();
+        List<Product> allProducts = ProductRepository.getAllRecords();
+        for (Product product: allProducts) {
+            if (product.getCategory().toString().equals(categoryName)) {
+                productsInCategory.add(product);
             }
         }
-        return products;
+        return productsInCategory;
     }
 
     private Object getProduct(String product) {
