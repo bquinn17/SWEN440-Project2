@@ -12,6 +12,11 @@ import java.util.Date;
 public class OrderHistory implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @Column(name="user_id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_user_id")
     private User user;
@@ -29,6 +34,10 @@ public class OrderHistory implements Serializable {
 
     @Column(name = "action")
     private int action;
+
+    public int getId() {
+        return id;
+    }
 
     public User getUser() {
         return user;

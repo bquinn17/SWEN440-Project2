@@ -4,17 +4,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.rit.swen440.dataLayer.Category;
-import org.rit.swen440.dataLayer.Product;
-import org.rit.swen440.dataLayer.User;
-import org.rit.swen440.dataLayer.WishList;
+import org.rit.swen440.dataLayer.*;
 
 class DBSession {
 
     private static SessionFactory sessionFactoryObj;
 
     // This Method Is Used To Create The Hibernate's SessionFactory Object
-    private static SessionFactory buildSessionFactory() {
+    private synchronized static SessionFactory buildSessionFactory() {
         // Creating Configuration Instance & Passing Hibernate Configuration File
         Configuration configuration = new Configuration();
         configuration.addResource("hibernate.cfg.xml");
@@ -22,6 +19,7 @@ class DBSession {
         configuration.addAnnotatedClass(Product.class);
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(WishList.class);
+        configuration.addAnnotatedClass(OrderHistory.class);
         configuration.configure();
 
         // Since Hibernate Version 4.x, ServiceRegistry Is Being Used
@@ -32,7 +30,7 @@ class DBSession {
         return sessionFactoryObj;
     }
 
-    static org.hibernate.Session getSession(){
+    synchronized static org.hibernate.Session getSession(){
         if (sessionFactoryObj == null || sessionFactoryObj.isClosed()) {
             buildSessionFactory();
         }

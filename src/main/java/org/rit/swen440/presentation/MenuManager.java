@@ -1,20 +1,23 @@
 package org.rit.swen440.presentation;
 
-import org.rit.swen440.control.Controller;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.rit.swen440.control.CategoryController;
+import org.rit.swen440.control.ProductController;
+import org.rit.swen440.dataLayer.Category;
+import org.rit.swen440.dataLayer.Product;
 
 
 public class MenuManager {
     private int currentLevel = 0;
     private String currentCategoryName;
     private String currentItemName;
-    private Controller controller;
+
+    private CategoryController categoryController;
+    private ProductController productController;
 
     public MenuManager() {
-        controller = new Controller(System.getProperty("fileSystemRoot"));
 
     }
 
@@ -44,8 +47,14 @@ public class MenuManager {
 
     private void Level0() {
         Menu m = new Menu();
-        List<String> categories = controller.getCategories();
-        m.loadMenu(categories);
+        List<Category> categories = categoryController.getCategories();
+
+        m.loadMenu();
+
+        for(Category cat: categories){
+            m.addMenuItem(cat.getName());
+        }
+
         m.addMenuItem("'q' to Quit");
         System.out.println("The following org.rit.swen440.presentation.Categories are available");
         m.printMenu();
@@ -61,7 +70,7 @@ public class MenuManager {
             currentLevel++;
             int iSel = Integer.parseInt(result);
 
-            currentCategoryName = categories.get(iSel);
+            currentCategoryName = categories.get(iSel).getName();
             System.out.println("\nYour Selection was:" + currentCategoryName);
         }
     }
@@ -69,24 +78,26 @@ public class MenuManager {
     private void Level1() {
         Menu m = new Menu();
 
-        //items it = new items("orderSys/" + currentCategory.getName());
 
-        // List<item> itemList = controller.getProducts(currentCategoryName);
-        List<String> itemList = controller.getProducts(currentCategoryName);
-        List<String> l = new ArrayList<>();
+        List<Product> itemList = productController.getProducts(currentCategoryName);
+        List<String> infoList = new ArrayList<>();
         System.out.println();
-        for (String itm : itemList)
-            l.add(controller.getProductInformation(currentCategoryName, itm, Controller.PRODUCT_FIELD.NAME)
-                    + "($" + controller.getProductInformation(currentCategoryName, itm, Controller.PRODUCT_FIELD.COST) + ")");
 
-        m.loadMenu(l);
+        String yeet;
+        for (Product product: itemList){
+            yeet = product.getTitle() + "($" + product.getCost() + ")";
+            infoList.add(yeet);
+            m.addMenuItem(yeet);
+        }
+
+        m.loadMenu();
         m.addMenuItem("'q' to quit");
         System.out.println("The following items are available");
         m.printMenu();
         String result = m.getSelection();
         try {
             int iSel = Integer.parseInt(result);//Item  selected
-            currentItemName = itemList.get(iSel);
+            currentItemName = itemList.get(iSel).getTitle();
             //currentItem = itemList.get(iSel);
             //Now read the file and print the org.rit.swen440.presentation.items in the catalog
             System.out.println("You want item from the catalog: " + currentItemName);
@@ -108,8 +119,9 @@ public class MenuManager {
 
     private void OrderQty(String category, String item) {
         System.out.println("Please select a quantity");
-        System.out.println(controller.getProductInformation(category, item, Controller.PRODUCT_FIELD.NAME) +
-                " availability:" + controller.getProductInformation(category, item, Controller.PRODUCT_FIELD.INVENTORY));
+        System.out.println("");
+        Product product = productController.getProduct(item);
+        System.out.println(product.getTitle() + " availability: " + product.getItemCount());
         System.out.print(":");
         Menu m = new Menu();
         String result = m.getSelection();

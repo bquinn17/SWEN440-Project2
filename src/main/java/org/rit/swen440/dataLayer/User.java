@@ -1,5 +1,10 @@
 package org.rit.swen440.dataLayer;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -28,7 +33,7 @@ public class User implements Serializable {
     @OneToMany(targetEntity = WishList.class, mappedBy = "user", fetch = FetchType.EAGER)
     private List<WishList> wishListItems = null;
 
-    @OneToMany(targetEntity = OrderHistory.class, mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = OrderHistory.class, mappedBy = "user")
     private List<OrderHistory> orderHistoryItems = null;
 
     public int getId() {
