@@ -1,23 +1,10 @@
 package org.rit.swen440.control;
 
-import org.rit.swen440.dataLayer.Category;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.repository.ProductRepository;
-import org.rit.swen440.repository.ProductRepository;
-import org.rit.swen440.repository.CategoryRepository;
-
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.nio.file.DirectoryIteratorException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class ProductController {
 

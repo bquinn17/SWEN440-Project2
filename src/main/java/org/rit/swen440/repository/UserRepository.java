@@ -34,7 +34,7 @@ public class UserRepository {
     }
 
     // Method 2: This Method Is Used To Display The Records From The Database Table
-    public static List getAllRecords() {
+    public static List<User> getAllRecords() {
         List userList = new ArrayList();
         // Getting Session Object From SessionFactory
         Session sessionObj = DBSession.getSession();
