@@ -12,6 +12,21 @@ import java.util.Date;
 public class OrderHistory implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Override
+    public String toString() {
+        return "product=" + product.getTitle() +
+                ", quantity=" + quantity +
+                ", action=" + getStatus(action);
+    }
+
+    private String getStatus(int action){
+        if (action == 1){
+            return "Purchased";
+        } else {
+            return "Returned";
+        }
+    }
+
     @Id
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.AUTO)
