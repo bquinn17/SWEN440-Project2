@@ -34,8 +34,8 @@ public class OrderHistoryRepository {
     }
 
     // Method 2: This Method Is Used To Display The Records From The Database Table
-    public static List getAllRecords() {
-        List orderHistoryList = new ArrayList();
+    public static List<OrderHistory> getAllRecords() {
+        List<OrderHistory> orderHistoryList = new ArrayList<>();
         // Getting Session Object From SessionFactory
         Session sessionObj = DBSession.getSession();
         try {

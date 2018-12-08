@@ -35,7 +35,7 @@ public class ProductRepository {
 
     // Method 2: This Method Is Used To Display The Records From The Database Table
     public static List<Product> getAllRecords() {
-        List productList = new ArrayList();
+        List<Product> productList = new ArrayList<>();
         // Getting Session Object From SessionFactory
         Session sessionObj = DBSession.getSession();
         try {
