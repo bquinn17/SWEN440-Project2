@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.rit.swen440.control.CategoryController;
+import org.rit.swen440.control.OrderController;
 import org.rit.swen440.control.ProductController;
 import org.rit.swen440.control.UserController;
 import org.rit.swen440.dataLayer.Category;
@@ -19,6 +20,7 @@ public class MenuManager {
     private CategoryController categoryController;
     private ProductController productController;
     private UserController userController;
+    private OrderController orderController;
 
     private User currentUser;
 
@@ -26,6 +28,7 @@ public class MenuManager {
         userController = new UserController();
         categoryController = new CategoryController();
         productController = new ProductController();
+        orderController = new OrderController();
 
     }
 
