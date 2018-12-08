@@ -3,7 +3,9 @@ package org.rit.swen440.control;
 import org.hibernate.criterion.Order;
 import org.rit.swen440.dataLayer.OrderHistory;
 import org.rit.swen440.dataLayer.Product;
+import org.rit.swen440.dataLayer.User;
 import org.rit.swen440.repository.OrderHistoryRepository;
+import org.rit.swen440.repository.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ public class OrderController {
     public boolean order(int amount, Product product) {
         if (canOrder(amount,product)){
             product.setItemCount(product.getItemCount()-amount);
+            ProductRepository.updateRecord(product);
             return true;
         } else {
             return false;
@@ -50,27 +53,31 @@ public class OrderController {
         return userOrders;
     }
 
-    public void createOrder(OrderHistory order){
+    public void returnOrder(OrderHistory order) {
+        order.setAction(1);
+        OrderHistoryRepository.updateRecord(order);
+    }
+
+    public void createOrder(int orderCount, User currentUser, Product product) {
+
+        if (order(orderCount, product) == false) {
+            reorder(product);
+            order(orderCount, product);
+        }
+        if (product.getItemCount() < product.getThreshold()) {
+            reorder(product);
+        }
+
+        OrderHistory order = new OrderHistory();
+        order.setProduct(product);
+        order.setQuantity(orderCount);
+        order.setAction(0);
+        order.setUser(currentUser);
         OrderHistoryRepository.createRecord(order);
     }
 
-    /**
-     * Loop through the set of products and write out any updated products
-     *
-     * @param orders set of orders
-     */
-    public void writeOrder(List<OrderHistory> orders) {
-        for (OrderHistory order : orders) {
-            updateProduct(order);
-        }
-    }
-
-    /**
-     * Write an updated order
-     *
-     * @param order the order
-     */
-    public void updateProduct(OrderHistory order) {
-        OrderHistoryRepository.updateRecord(order);
+    private void reorder(Product product) {
+        product.setItemCount(product.getItemCount() + product.getReorderAmount());
+        ProductRepository.updateRecord(product);
     }
 }

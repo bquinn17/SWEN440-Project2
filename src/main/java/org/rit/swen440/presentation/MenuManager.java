@@ -225,12 +225,6 @@ public class MenuManager {
         String result = m.getSelection();
         System.out.println("You ordered:" + result);
 
-        OrderHistory order = new OrderHistory();
-        order.setProduct(product);
-        order.setQuantity(Integer.parseInt(result));
-        order.setAction(0);
-        order.setUser(currentUser);
-
         orderController.createOrder(Integer.parseInt(result), currentUser, product);
     }
 }
