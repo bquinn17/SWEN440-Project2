@@ -62,7 +62,7 @@ public class OrderController {
     public void createOrder(int orderCount, User currentUser, Product product) {
 
         if (order(orderCount, product) == false) {
-            reorder(product);
+            reorder(product, orderCount);
             order(orderCount, product);
         }
         if (product.getItemCount() < product.getThreshold()) {
@@ -76,6 +76,11 @@ public class OrderController {
         order.setUser(currentUser);
         order.setDateCreated(Date.valueOf(LocalDateTime.now().toLocalDate()));
         OrderHistoryRepository.createRecord(order);
+    }
+
+    private void reorder(Product product, int orderCount) {
+        product.setItemCount(product.getItemCount() + product.getReorderAmount() + orderCount);
+        ProductRepository.updateRecord(product);
     }
 
     private void reorder(Product product) {

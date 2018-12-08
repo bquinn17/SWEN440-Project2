@@ -13,7 +13,7 @@ public class OrderHistory implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name="user_id")
+    @Column(name="id")
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
