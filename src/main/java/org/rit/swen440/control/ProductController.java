@@ -65,11 +65,11 @@ public class ProductController {
         return productsInCategory;
     }
 
-    public Product getProduct(String product) {
+    public Product getProduct(String productTitle) {
         List<Product> products = ProductRepository.getAllRecords();
-        for (Object aP : products) {
-            if (aP.equals(product)) {
-                return (Product) aP;
+        for (Product aP : products) {
+            if (aP.getTitle().equals(productTitle)) {
+                return aP;
             }
         }
         return null;

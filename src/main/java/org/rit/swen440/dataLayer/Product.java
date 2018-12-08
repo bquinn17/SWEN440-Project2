@@ -57,7 +57,7 @@ public class Product implements Serializable {
     @OneToMany(targetEntity = WishList.class, mappedBy = "product", fetch = FetchType.EAGER)
     private Set<WishList> wishListItems = null;
 
-    @OneToMany(targetEntity = OrderHistory.class, mappedBy = "product")
+    @OneToMany(targetEntity = OrderHistory.class, mappedBy = "product", fetch = FetchType.EAGER)
     private Set<OrderHistory> orderHistoryItems = null;
 
     @Setter(AccessLevel.PRIVATE)
