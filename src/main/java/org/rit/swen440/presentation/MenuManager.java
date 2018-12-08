@@ -1,15 +1,14 @@
 package org.rit.swen440.presentation;
 
-import org.rit.swen440.control.CategoryController;
-import org.rit.swen440.control.OrderController;
-import org.rit.swen440.control.ProductController;
-import org.rit.swen440.control.UserController;
+import org.rit.swen440.control.*;
 import org.rit.swen440.dataLayer.Category;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.dataLayer.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.rit.swen440.dataLayer.*;
 
 
 public class MenuManager {
@@ -21,6 +20,7 @@ public class MenuManager {
     private ProductController productController;
     private UserController userController;
     private OrderController orderController;
+    private WishListController wishListController;
 
     private User currentUser;
 
@@ -29,6 +29,7 @@ public class MenuManager {
         categoryController = new CategoryController();
         productController = new ProductController();
         orderController = new OrderController();
+        wishListController  = new WishListController();
 
     }
 
@@ -157,7 +158,7 @@ public class MenuManager {
         for(Category cat: categories){
             m.addMenuItem(cat.getName());
         }
-
+        m.addMenuItem("'v' to View Wishlist");
         m.addMenuItem("'q' to Logout");
         System.out.println("The following categories are available");
         m.printMenu();
@@ -170,7 +171,9 @@ public class MenuManager {
         if (Objects.equals(result, "q")) {
             currentLevel--;
             currentUser = null;
-        } else {
+        } else if(Objects.equals(result, "v")){
+            LevelWishList();
+        }else {
             currentLevel++;
             int iSel = Integer.parseInt(result);
 
@@ -179,6 +182,13 @@ public class MenuManager {
         }
     }
 
+
+    private void LevelWishList(){
+        Menu m = new Menu();
+        WishList allWishList = wishListController.getWishList(currentUser);
+        System.out.println(allWishList);
+
+    }
 
     private void Level2() {
         Menu m = new Menu();
@@ -205,10 +215,19 @@ public class MenuManager {
         } catch (Exception e) {
             result = "q";
         }
-        if (result.equals("q"))
+        if (result.equals("q")) {
             currentLevel--;
-        else {
+        } else {
             //currentLevel++;//Or keep at same level?
+            System.out.println("Add item to wishlist (y/n) ?");
+            String wishListAnswer = m.getSelection();
+
+            if (wishListAnswer.equals("y")){
+                WishList wishList = wishListController.getWishList(currentUser);
+                // append this product to list
+
+            }
+
             OrderQty(currentCategoryName, currentItemName);
         }
     }
