@@ -41,7 +41,7 @@ With Maven installed, running **mvn clean install** from the root install direct
 successfully build the program.  It is expected that every build will also execute the test
 lifecycle ensuring that unit tests all still pass.
 
-After that you must install MySQL 8.0 and set it up in order to connect to it successfully, make sure to name the database `ordersys`. 
+After that you must install MySQL 8.0 and set it up in order to connect to it successfully, make sure to name the database schema `ordersys`. 
 Once MySQL is successfully set up, go into the file `hibernate.cfg.xml` 
 and replace the part of the code that says `your password here` with your MySQL password.
 
