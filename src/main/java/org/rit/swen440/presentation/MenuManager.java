@@ -1,8 +1,5 @@
 package org.rit.swen440.presentation;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import org.rit.swen440.control.CategoryController;
 import org.rit.swen440.control.OrderController;
 import org.rit.swen440.control.ProductController;
@@ -10,7 +7,9 @@ import org.rit.swen440.control.UserController;
 import org.rit.swen440.dataLayer.Category;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.dataLayer.User;
-import org.rit.swen440.dataLayer.OrderHistory;
+
+import java.util.List;
+import java.util.Objects;
 
 
 public class MenuManager {
@@ -94,20 +93,20 @@ public class MenuManager {
     private void LevelLogin() {
         Menu menu = new Menu();
 
-        menu.addMenuItem("'q <enter> <enter>' to Cancel");
+        menu.addMenuItem("'q' to Cancel");
         menu.addMenuItem("Type username <enter> password to login:");
         menu.printMenu();
         String username = "";
         String password = "";
         try {
             username = menu.getSelection();
-            password = menu.getSelection();
         } catch (Exception e) {
             username = "q";
         }
         if (Objects.equals(username, "q")) {
             System.out.println("Canceled");
         } else {
+            password = menu.getSelection();
             User user = userController.login(username, password);
             if (user == null) {
                 System.out.println("\nYour credentials were invalid, try again...");
@@ -123,7 +122,7 @@ public class MenuManager {
     private void LevelCreateAccount() {
         Menu menu = new Menu();
 
-        menu.addMenuItem("'q <enter> <enter> <enter>' to Cancel");
+        menu.addMenuItem("'q' to Cancel");
         menu.addMenuItem("Type you full name <enter> username <enter> password to create an account:");
         menu.printMenu();
         String fullName = "";
@@ -131,14 +130,14 @@ public class MenuManager {
         String password = "";
         try {
             fullName = menu.getSelection();
-            username = menu.getSelection();
-            password = menu.getSelection();
         } catch (Exception e) {
-            username = "q";
+            fullName = "q";
         }
-        if (Objects.equals(username, "q")) {
+        if (Objects.equals(fullName, "q")) {
             System.out.println("Canceled");
         } else {
+            username = menu.getSelection();
+            password = menu.getSelection();
             User user = userController.createAccount(username, password, fullName);
             if (user == null) {
                 System.out.println("\nSomething went wrong, try again...");
@@ -183,7 +182,6 @@ public class MenuManager {
 
     private void Level2() {
         Menu m = new Menu();
-
 
         List<Product> productList = productController.getProducts(currentCategoryName);
         System.out.println();

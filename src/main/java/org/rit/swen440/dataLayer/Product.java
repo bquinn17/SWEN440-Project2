@@ -3,20 +3,11 @@ package org.rit.swen440.dataLayer;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.criterion.Order;
-
-import java.math.BigDecimal;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Random;
 
 
 /**
@@ -53,12 +44,6 @@ public class Product implements Serializable {
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="categoryId")
     private Category category = null;
-
-    @OneToMany(targetEntity = WishList.class, mappedBy = "product", fetch = FetchType.EAGER)
-    private Set<WishList> wishListItems = null;
-
-    @OneToMany(targetEntity = OrderHistory.class, mappedBy = "product", fetch = FetchType.EAGER)
-    private Set<OrderHistory> orderHistoryItems = null;
 
     @Setter(AccessLevel.PRIVATE)
     private boolean updated = false;

@@ -1,14 +1,7 @@
 package org.rit.swen440.dataLayer;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="user")
@@ -29,12 +22,6 @@ public class User implements Serializable {
 
     @Column(name="password")
     private String password;
-
-    @OneToMany(targetEntity = WishList.class, mappedBy = "user", fetch = FetchType.EAGER)
-    private List<WishList> wishListItems = null;
-
-    @OneToMany(targetEntity = OrderHistory.class, mappedBy = "user")
-    private List<OrderHistory> orderHistoryItems = null;
 
     public int getId() {
         return id;

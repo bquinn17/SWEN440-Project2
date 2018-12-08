@@ -2,12 +2,8 @@ package org.rit.swen440.dataLayer;
 
 import lombok.Data;
 
-import java.util.List;
-import java.util.Optional;
-
-import java.io.Serializable;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 /**
@@ -31,9 +27,6 @@ public class Category implements Serializable {
     @Column(name = "description")
     private String description;
 
-//    @OneToMany(targetEntity = Product.class, mappedBy = "category", fetch = FetchType.EAGER)
-//    private List<Product> products = null;
-
     public Integer getId() {
         return id;
     }
@@ -46,10 +39,6 @@ public class Category implements Serializable {
         return description;
     }
 
-//    public List<Product> getProducts() {
-//        return products;
-//    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -58,7 +47,4 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-//    public void setProducts(List<Product> products) {
-//        this.products = products;
-//    }
 }

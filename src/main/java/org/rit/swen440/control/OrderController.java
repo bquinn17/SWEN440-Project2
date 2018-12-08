@@ -1,12 +1,13 @@
 package org.rit.swen440.control;
 
-import org.hibernate.criterion.Order;
 import org.rit.swen440.dataLayer.OrderHistory;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.dataLayer.User;
 import org.rit.swen440.repository.OrderHistoryRepository;
 import org.rit.swen440.repository.ProductRepository;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +74,7 @@ public class OrderController {
         order.setQuantity(orderCount);
         order.setAction(0);
         order.setUser(currentUser);
+        order.setDateCreated(Date.valueOf(LocalDateTime.now().toLocalDate()));
         OrderHistoryRepository.createRecord(order);
     }
 

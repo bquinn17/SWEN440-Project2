@@ -34,8 +34,8 @@ public class WishListRepository {
     }
 
     // Method 2: This Method Is Used To Display The Records From The Database Table
-    public static List getAllRecords() {
-        List wishListList = new ArrayList();
+    public static List<WishList> getAllRecords() {
+        List<WishList> wishListList = new ArrayList<>();
         // Getting Session Object From SessionFactory
         Session sessionObj = DBSession.getSession();
         try {
@@ -65,7 +65,7 @@ public class WishListRepository {
             sessionObj.beginTransaction();
 
             // Creating Transaction Entity
-            WishList wishListObj = (WishList) sessionObj.get(WishList.class, wishList.getId());
+            WishList wishListObj = (WishList) sessionObj.get(WishList.class, wishList.getUserId());
             wishListObj = wishList;
 
             // Committing The Transactions To The Database
@@ -90,7 +90,7 @@ public class WishListRepository {
             // Getting Transaction Object From Session Object
             sessionObj.beginTransaction();
 
-            WishList wishListObj = (WishList) sessionObj.get(WishList.class, wishList.getId());
+            WishList wishListObj = (WishList) sessionObj.get(WishList.class, wishList.getUserId());
             sessionObj.delete(wishListObj);
 
             // Committing The Transactions To The Database
