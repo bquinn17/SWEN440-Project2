@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import org.rit.swen440.control.CategoryController;
 import org.rit.swen440.control.ProductController;
+import org.rit.swen440.control.UserController;
 import org.rit.swen440.dataLayer.Category;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.dataLayer.User;
@@ -17,11 +18,12 @@ public class MenuManager {
 
     private CategoryController categoryController;
     private ProductController productController;
+    private UserController userController;
 
     private User currentUser;
 
     public MenuManager() {
-
+        userController = new UserController();
         categoryController = new CategoryController();
         productController = new ProductController();
 
@@ -88,10 +90,62 @@ public class MenuManager {
     }
 
     private void LevelLogin() {
+        Menu menu = new Menu();
+
+        menu.addMenuItem("'q <enter> <enter>' to Cancel");
+        menu.addMenuItem("Type username <enter> password to login:");
+        menu.printMenu();
+        String username = "";
+        String password = "";
+        try {
+            username = menu.getSelection();
+            password = menu.getSelection();
+        } catch (Exception e) {
+            username = "q";
+        }
+        if (Objects.equals(username, "q")) {
+            currentLevel--;
+        } else {
+            User user = userController.login(username, password);
+            if (user == null) {
+                System.out.println("\nYour credentials were invalid, try again...");
+            } else {
+                System.out.println("\nWelcome " + user.getFullName());
+                currentUser = user;
+                currentLevel++;
+            }
+        }
         System.out.println("User is logged in");
     }
 
     private void LevelCreateAccount() {
+        Menu menu = new Menu();
+
+        menu.addMenuItem("'q <enter> <enter>' to Cancel");
+        menu.addMenuItem("Type you full name <enter> username <enter> password to create an account:");
+        menu.printMenu();
+        String fullName = "";
+        String username = "";
+        String password = "";
+        try {
+            username = menu.getSelection();
+            password = menu.getSelection();
+            fullName = menu.getSelection();
+        } catch (Exception e) {
+            username = "q";
+        }
+        if (Objects.equals(username, "q")) {
+            currentLevel--;
+        } else {
+            User user = userController.createAccount(username, password, fullName);
+            if (user == null) {
+                System.out.println("\nSomething went wrong, try again...");
+            } else {
+                System.out.println("\nWelcome " + user.getFullName());
+                currentUser = user;
+                currentLevel++;
+            }
+        }
         System.out.println("User account created and logged in");
     }
 
@@ -114,6 +168,7 @@ public class MenuManager {
         }
         if (Objects.equals(result, "q")) {
             currentLevel--;
+            currentUser = null;
         } else {
             currentLevel++;
             int iSel = Integer.parseInt(result);
