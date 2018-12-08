@@ -24,6 +24,25 @@ public class UserController {
         UserRepository.deleteRecord(user);
     }
 
+    public User login(String UserName, String Password){
+        User currentUser = null;
+        List<User> usersAll = UserRepository.getAllRecords();
+        for (User user: usersAll){
+            if (user.getUserName().equals(UserName) && user.getPassword().equals(Password)){
+                currentUser = user;
+            }
+        }
+        return currentUser;
+    }
+
+    public User createAccount(String UserName, String Password, String FullName){
+        User user = new User();
+        user.setFullName(FullName);
+        user.setUserName(UserName);
+        user.setPassword(Password);
+        UserRepository.createRecord(user);
+        return user;
+    }
 
     public void writeUsers(List<User> users) {
         for (User user : users) {
