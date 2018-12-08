@@ -168,6 +168,11 @@ public class MenuManager {
         } catch (Exception e) {
             result = "q";
         }
+        try {
+            Integer.parseInt(result);
+        } catch (NumberFormatException ex) {
+            result = "q";
+        }
         if (Objects.equals(result, "q")) {
             currentLevel--;
             currentUser = null;
