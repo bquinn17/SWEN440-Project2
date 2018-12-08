@@ -10,6 +10,7 @@ import org.rit.swen440.control.UserController;
 import org.rit.swen440.dataLayer.Category;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.dataLayer.User;
+import org.rit.swen440.dataLayer.OrderHistory;
 
 
 public class MenuManager {
@@ -225,5 +226,13 @@ public class MenuManager {
         Menu m = new Menu();
         String result = m.getSelection();
         System.out.println("You ordered:" + result);
+
+        OrderHistory order = new OrderHistory();
+        order.setProduct(product);
+        order.setQuantity(Integer.parseInt(result));
+        order.setAction(0);
+        order.setUser(currentUser);
+
+        orderController.order(Integer.parseInt(result), product);
     }
 }
