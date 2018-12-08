@@ -7,6 +7,7 @@ import org.rit.swen440.control.CategoryController;
 import org.rit.swen440.control.ProductController;
 import org.rit.swen440.dataLayer.Category;
 import org.rit.swen440.dataLayer.Product;
+import org.rit.swen440.dataLayer.User;
 
 
 public class MenuManager {
@@ -16,6 +17,8 @@ public class MenuManager {
 
     private CategoryController categoryController;
     private ProductController productController;
+
+    private User currentUser;
 
     public MenuManager() {
 
@@ -49,6 +52,50 @@ public class MenuManager {
     }
 
     private void Level0() {
+        Menu menu = new Menu();
+
+        menu.addMenuItem("'0' to Login");
+        menu.addMenuItem("'1' to Create Account");
+        menu.addMenuItem("'q' to Exit");
+
+        menu.printMenu();
+        String result = "0";
+        try {
+            result = menu.getSelection();
+        } catch (Exception e) {
+            result = "q";
+        }
+        try {
+            Integer.parseInt(result);
+        } catch (NumberFormatException ex) {
+            result = "q";
+        }
+        if (Objects.equals(result, "q")) {
+            currentLevel--;
+        } else {
+            int iSel = Integer.parseInt(result);
+            currentLevel++;
+            if (iSel == 0) {
+                LevelLogin();
+            } else if (iSel == 1) {
+                LevelCreateAccount();
+            } else {
+                System.out.println("Selection Invalid...Try Again");
+                currentLevel--;
+            }
+
+        }
+    }
+
+    private void LevelLogin() {
+        System.out.println("User is logged in");
+    }
+
+    private void LevelCreateAccount() {
+        System.out.println("User account created and logged in");
+    }
+
+    private void Level1() {
         Menu m = new Menu();
         List<Category> categories = categoryController.getCategories();
 
@@ -56,7 +103,7 @@ public class MenuManager {
             m.addMenuItem(cat.getName());
         }
 
-        m.addMenuItem("'q' to Quit");
+        m.addMenuItem("'q' to Logout");
         System.out.println("The following org.rit.swen440.presentation.Categories are available");
         m.printMenu();
         String result = "0";
@@ -76,7 +123,8 @@ public class MenuManager {
         }
     }
 
-    private void Level1() {
+
+    private void Level2() {
         Menu m = new Menu();
 
 
@@ -108,11 +156,6 @@ public class MenuManager {
             //currentLevel++;//Or keep at same level?
             OrderQty(currentCategoryName, currentItemName);
         }
-    }
-
-
-    private void Level2() {
-
     }
 
     private void OrderQty(String category, String item) {
