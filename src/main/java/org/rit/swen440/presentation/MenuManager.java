@@ -52,8 +52,6 @@ public class MenuManager {
         Menu m = new Menu();
         List<Category> categories = categoryController.getCategories();
 
-        m.loadMenu();
-
         for(Category cat: categories){
             m.addMenuItem(cat.getName());
         }
@@ -91,7 +89,6 @@ public class MenuManager {
             m.addMenuItem(yeet);
         }
 
-        m.loadMenu();
         m.addMenuItem("'q' to quit");
         System.out.println("The following items are available");
         m.printMenu();

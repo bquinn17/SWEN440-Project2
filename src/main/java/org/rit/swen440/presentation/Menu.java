@@ -11,11 +11,8 @@ class Menu {
     private Scanner sc;
 
     Menu() {
-        sc = new Scanner(System.in);
-    }
-
-    void loadMenu() {
         menuList = new ArrayList<>();
+        sc = new Scanner(System.in);
     }
 
     void addMenuItem(String item) {
