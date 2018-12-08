@@ -24,22 +24,22 @@ public class UserController {
         UserRepository.deleteRecord(user);
     }
 
-    public User login(String UserName, String Password){
+    public User login(String userName, String password){
         User currentUser = null;
         List<User> usersAll = UserRepository.getAllRecords();
         for (User user: usersAll){
-            if (user.getUserName().equals(UserName) && user.getPassword().equals(Password)){
+            if (user.getUserName().equals(userName) && user.getPassword().equals(password)){
                 currentUser = user;
             }
         }
         return currentUser;
     }
 
-    public User createAccount(String UserName, String Password, String FullName){
+    public User createAccount(String userName, String password, String fullName){
         User user = new User();
-        user.setFullName(FullName);
-        user.setUserName(UserName);
-        user.setPassword(Password);
+        user.setFullName(fullName);
+        user.setUserName(userName);
+        user.setPassword(password);
         UserRepository.createRecord(user);
         return user;
     }
