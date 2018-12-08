@@ -1,7 +1,8 @@
 package org.rit.swen440.dataLayerTests;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
+import org.rit.swen440.control.CategoryController;
+import org.rit.swen440.control.ProductController;
 import org.rit.swen440.dataLayer.Category;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.repository.CategoryRepository;
@@ -15,16 +16,36 @@ import java.util.ArrayList;
  */
 public class orderSystemTest {
 
+    private static CategoryController categoryController;
+    private static ProductController productController;
 
-//    @Test
-//    public void testCategoryCreation() {
-//        Category category = new Category();
-//        category.setDescription("Music");
-//        category.setName("8 Track Tapes");
-//
-//        CategoryRepository.createRecord(category);
-//        Assert.assertNotNull(category.getId());
-//    }
+    @BeforeClass
+    public static void initializeControllers() {
+        ProductRepository.deleteAllRecords();
+        CategoryRepository.deleteAllRecords();
+        categoryController = new CategoryController();
+        productController = new ProductController();
+    }
+
+    @Test
+    public void testCategoryController() {
+        CategoryController categoryController = new CategoryController();
+        Category toysCategory = categoryController.findCategory("Toys");
+        Assert.assertNotNull(toysCategory);
+
+        Category tracksCategory = categoryController.findCategory("Eight Track Tapes");
+        Assert.assertNotNull(tracksCategory);
+    }
+
+    @Test
+    public void testCategoryCreation() {
+        Category category = new Category();
+        category.setDescription("Many different print books");
+        category.setName("Books");
+
+        CategoryRepository.createRecord(category);
+        Assert.assertNotNull(category.getId());
+    }
 
     @Test
     public void testProductCreation() {
@@ -48,5 +69,11 @@ public class orderSystemTest {
 
         Assert.assertNotNull(category);
         Assert.assertNotNull(category.getProducts());
+    }
+
+    @AfterClass
+    public static void cleanUpRepo() {
+        ProductRepository.deleteAllRecords();
+        CategoryRepository.deleteAllRecords();
     }
 }
