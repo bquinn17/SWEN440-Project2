@@ -58,7 +58,7 @@ public class ProductController {
         List<Product> productsInCategory = new ArrayList<>();
         List<Product> allProducts = ProductRepository.getAllRecords();
         for (Product product: allProducts) {
-            if (product.getCategory().toString().equals(categoryName)) {
+            if (product.getCategory().getName().equals(categoryName)) {
                 productsInCategory.add(product);
             }
         }
@@ -73,6 +73,11 @@ public class ProductController {
             }
         }
         return null;
+    }
+
+    public List<Product> getAllProducts(){
+        List<Product> allProducts = ProductRepository.getAllRecords();
+        return allProducts;
     }
 
     /**
