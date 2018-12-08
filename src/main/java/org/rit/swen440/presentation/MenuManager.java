@@ -19,6 +19,9 @@ public class MenuManager {
 
     public MenuManager() {
 
+        categoryController = new CategoryController();
+        productController = new ProductController();
+
     }
 
     public boolean loadLevel(int level) {
@@ -79,14 +82,12 @@ public class MenuManager {
         Menu m = new Menu();
 
 
-        List<Product> itemList = productController.getProducts(currentCategoryName);
-        List<String> infoList = new ArrayList<>();
+        List<Product> productList = productController.getProducts(currentCategoryName);
         System.out.println();
 
         String yeet;
-        for (Product product: itemList){
+        for (Product product: productList){
             yeet = product.getTitle() + "($" + product.getCost() + ")";
-            infoList.add(yeet);
             m.addMenuItem(yeet);
         }
 
@@ -97,8 +98,8 @@ public class MenuManager {
         String result = m.getSelection();
         try {
             int iSel = Integer.parseInt(result);//Item  selected
-            currentItemName = itemList.get(iSel).getTitle();
-            //currentItem = itemList.get(iSel);
+            currentItemName = productList.get(iSel).getTitle();
+            //currentItem = productList.get(iSel);
             //Now read the file and print the org.rit.swen440.presentation.items in the catalog
             System.out.println("You want item from the catalog: " + currentItemName);
         } catch (Exception e) {
