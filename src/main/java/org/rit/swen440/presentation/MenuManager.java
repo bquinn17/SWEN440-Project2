@@ -231,6 +231,6 @@ public class MenuManager {
         order.setAction(0);
         order.setUser(currentUser);
 
-        orderController.order(Integer.parseInt(result), product);
+        orderController.createOrder(Integer.parseInt(result), currentUser, product);
     }
 }
