@@ -80,14 +80,12 @@ public class MenuManager {
             currentLevel--;
         } else {
             int iSel = Integer.parseInt(result);
-            currentLevel++;
             if (iSel == 0) {
                 LevelLogin();
             } else if (iSel == 1) {
                 LevelCreateAccount();
             } else {
                 System.out.println("Selection Invalid...Try Again");
-                currentLevel--;
             }
 
         }
@@ -108,7 +106,7 @@ public class MenuManager {
             username = "q";
         }
         if (Objects.equals(username, "q")) {
-            currentLevel--;
+            System.out.println("Canceled");
         } else {
             User user = userController.login(username, password);
             if (user == null) {
@@ -117,29 +115,29 @@ public class MenuManager {
                 System.out.println("\nWelcome " + user.getFullName());
                 currentUser = user;
                 currentLevel++;
+                System.out.println("User is logged in");
             }
         }
-        System.out.println("User is logged in");
     }
 
     private void LevelCreateAccount() {
         Menu menu = new Menu();
 
-        menu.addMenuItem("'q <enter> <enter>' to Cancel");
+        menu.addMenuItem("'q <enter> <enter> <enter>' to Cancel");
         menu.addMenuItem("Type you full name <enter> username <enter> password to create an account:");
         menu.printMenu();
         String fullName = "";
         String username = "";
         String password = "";
         try {
+            fullName = menu.getSelection();
             username = menu.getSelection();
             password = menu.getSelection();
-            fullName = menu.getSelection();
         } catch (Exception e) {
             username = "q";
         }
         if (Objects.equals(username, "q")) {
-            currentLevel--;
+            System.out.println("Canceled");
         } else {
             User user = userController.createAccount(username, password, fullName);
             if (user == null) {
@@ -148,9 +146,9 @@ public class MenuManager {
                 System.out.println("\nWelcome " + user.getFullName());
                 currentUser = user;
                 currentLevel++;
+                System.out.println("User account created and logged in");
             }
         }
-        System.out.println("User account created and logged in");
     }
 
     private void Level1() {
@@ -162,7 +160,7 @@ public class MenuManager {
         }
 
         m.addMenuItem("'q' to Logout");
-        System.out.println("The following org.rit.swen440.presentation.Categories are available");
+        System.out.println("The following categories are available");
         m.printMenu();
         String result = "0";
         try {
