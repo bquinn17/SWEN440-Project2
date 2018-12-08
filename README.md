@@ -1,6 +1,11 @@
 # SWEN-440:  Project 2
 Fall 2018
 
+- Bryan Quinn
+- Ryan Connors
+- Peter Howard
+- Ian Taylor
+
 ## Online Ordering System
 
 ### Overview:
@@ -36,10 +41,14 @@ With Maven installed, running **mvn clean install** from the root install direct
 successfully build the program.  It is expected that every build will also execute the test
 lifecycle ensuring that unit tests all still pass.
 
+After that you must install MySQL 8.0 and set it up in order to connect to it successfully, make sure to name the database `ordersys`. 
+Once MySQL is successfully set up, go into the file `hibernate.cfg.xml` 
+and replace the part of the code that says `your password here` with your MySQL password.
+
 ### Testing
 Unit tests are included to test the functionality of our Data Layer, Controller and Repository.  
 
 ## Running the Online Ordering System
-Run OrderSystem to start the program.
+Run OrderSystem to start the program and make sure that you have a valid connection to a MySQL database.
 
 
