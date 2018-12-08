@@ -12,14 +12,15 @@ public class WishListController {
         WishListRepository.createRecord(wishlist);
     }
 
-    public WishList getWishList(User user){
+    public List<WishList> getWishList(User user){
         List<WishList> allWishLists = getAllWishLists();
+        List<WishList> usersWishList = new ArrayList<>();
         for (WishList wish : allWishLists){
             if (wish.getUserId().getId() == user.getId()){
-                return wish;
+                usersWishList.add(wish);
             }
         }
-        return null;
+        return usersWishList;
     }
 
     public List<WishList> getAllWishLists(){
