@@ -31,8 +31,8 @@ public class Category implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(targetEntity = Product.class, mappedBy = "category", fetch = FetchType.EAGER)
-    private List<Product> products = null;
+//    @OneToMany(targetEntity = Product.class, mappedBy = "category", fetch = FetchType.EAGER)
+//    private List<Product> products = null;
 
     public Integer getId() {
         return id;
@@ -46,9 +46,9 @@ public class Category implements Serializable {
         return description;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
+//    public List<Product> getProducts() {
+//        return products;
+//    }
 
     public void setName(String name) {
         this.name = name;
@@ -58,13 +58,7 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public Optional<Product> findProduct(String name) {
-        return products.stream()
-                .filter(p -> p.getTitle().equalsIgnoreCase(name))
-                .findFirst();
-    }
+//    public void setProducts(List<Product> products) {
+//        this.products = products;
+//    }
 }

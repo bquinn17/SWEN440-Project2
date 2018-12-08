@@ -63,12 +63,12 @@ public class orderSystemTest {
         product.setCategory(category);
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        category.setProducts(products);
 
         ProductRepository.createRecord(product);
 
         Assert.assertNotNull(category);
-        Assert.assertNotNull(category.getProducts());
+        Assert.assertNotNull(product);
+        Assert.assertEquals(product.getCategory(), category);
     }
 
     @AfterClass
