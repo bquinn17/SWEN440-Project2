@@ -158,7 +158,8 @@ public class MenuManager {
         for(Category cat: categories){
             m.addMenuItem(cat.getName());
         }
-        m.addMenuItem("'v' to View Wishlist");
+        m.addMenuItem("'o' to View Order History");
+        m.addMenuItem("'w' to View Wishlist");
         m.addMenuItem("'q' to Logout");
         System.out.println("The following categories are available");
         m.printMenu();
@@ -171,12 +172,16 @@ public class MenuManager {
         try {
             Integer.parseInt(result);
         } catch (NumberFormatException ex) {
-            result = "q";
+
         }
-        if (Objects.equals(result, "q")) {
+        System.out.println(result);
+        if (result.equals("q")) {
             currentLevel--;
             currentUser = null;
-        } else if(Objects.equals(result, "v")){
+        } else if(result.equals("o")){
+            LevelOrderHistory();
+
+        } else if(result.equals("w")){
             LevelWishList();
         }else {
             currentLevel++;
@@ -190,8 +195,25 @@ public class MenuManager {
 
     private void LevelWishList(){
         Menu m = new Menu();
-        WishList allWishList = wishListController.getWishList(currentUser);
-        System.out.println(allWishList);
+        List<WishList> allWishList = wishListController.getWishList(currentUser);
+        for (WishList wishList: allWishList){
+            m.addMenuItem(wishList.getProduct().getTitle());
+        }
+        System.out.println("Here is your wish list: ");
+        m.printMenu();
+
+    }
+
+    private void LevelOrderHistory(){
+        Menu m = new Menu();
+        List<OrderHistory> orderList = orderController.getUserOrders(currentUser.getUserName());
+
+        for (OrderHistory orderHistory: orderList){
+            m.addMenuItem(orderHistory.toString());
+        }
+        System.out.println("Here is your order history :) ");
+        m.printMenu();
+
 
     }
 
@@ -211,14 +233,16 @@ public class MenuManager {
         System.out.println("The following items are available");
         m.printMenu();
         String result = m.getSelection();
+        int iSel;
         try {
-            int iSel = Integer.parseInt(result);//Item  selected
+            iSel = Integer.parseInt(result);//Item  selected
             currentItemName = productList.get(iSel).getTitle();
             //currentItem = productList.get(iSel);
             //Now read the file and print the org.rit.swen440.presentation.items in the catalog
             System.out.println("You want item from the catalog: " + currentItemName);
         } catch (Exception e) {
             result = "q";
+            iSel = 0;
         }
         if (result.equals("q")) {
             currentLevel--;
@@ -228,12 +252,29 @@ public class MenuManager {
             String wishListAnswer = m.getSelection();
 
             if (wishListAnswer.equals("y")){
-                WishList wishList = wishListController.getWishList(currentUser);
-                // append this product to list
 
+                List<WishList> userWishList = wishListController.getWishList(currentUser);
+
+                WishList wishList = new WishList();
+                wishList.setUser(currentUser);
+                wishList.setProduct(productList.get(iSel));
+
+                boolean found = false;
+
+                for( WishList w: userWishList){
+                    if (w.getProduct().getTitle().equals(wishList.getProduct().getTitle()) &&
+                            w.getUser().getUserName().equals(wishList.getUser().getUserName())){
+                        found = true;
+                    }
+                }
+                 if (!found) {
+                    wishListController.createWishList(wishList);
+                }
+
+            }else {
+
+                OrderQty(currentCategoryName, currentItemName);
             }
-
-            OrderQty(currentCategoryName, currentItemName);
         }
     }
 

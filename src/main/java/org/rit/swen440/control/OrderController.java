@@ -72,7 +72,11 @@ public class OrderController {
         OrderHistory order = new OrderHistory();
         order.setProduct(product);
         order.setQuantity(orderCount);
-        order.setAction(0);
+        if (orderCount > 0) {
+            order.setAction(1);
+        }else{
+            order.setAction(0);
+        }
         order.setUser(currentUser);
         order.setDateCreated(Date.valueOf(LocalDateTime.now().toLocalDate()));
         OrderHistoryRepository.createRecord(order);
